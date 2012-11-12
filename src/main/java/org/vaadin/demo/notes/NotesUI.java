@@ -1,7 +1,7 @@
 package org.vaadin.demo.notes;
 
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -30,12 +30,9 @@ public class NotesUI extends UI {
 	}
 
 	private void wireUp() {
-		notes.setImmediate(true);
-		notes.setSelectable(true);
-
-		notes.addValueChangeListener(new ValueChangeListener() {
-			public void valueChange(ValueChangeEvent event) {
-				editor.setNote(notes.getItem(notes.getValue()));
+		notes.addItemClickListener(new ItemClickListener() {
+			public void itemClick(ItemClickEvent event) {
+				editor.setNote(event.getItem());	
 			}
 		});
 
